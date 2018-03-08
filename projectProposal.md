@@ -1,5 +1,5 @@
 # Data Visualization Project Proposal
-### Authors: Xierui Shen, William Fairman
+### Authors: Sherrie Shen, William Fairman
 ### Date: 3/6/18
 
 ## Main Idea
@@ -18,7 +18,7 @@ We will deliver a map of Boston, split into regions (e.g. zip codes), that shows
 * We are hoping to allow the user to filter the interactive map based on what data they want visualized
 
 ## Learning Goals
-Xierui
+Sherrie
 * Be able to use Pygame and Model View Controller to allow users to interact with the data visualization.
 * Consolidate skills in writing different Class objects and methods.
 
