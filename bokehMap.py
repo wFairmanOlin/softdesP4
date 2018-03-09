@@ -2,6 +2,9 @@ from bokeh.io import output_file, show
 from bokeh.models import (
   GMapPlot, GMapOptions, ColumnDataSource, Circle, Range1d, PanTool, WheelZoomTool, BoxSelectTool
 )
+from bokeh.layouts import widgetbox, column
+from bokeh.models.widgets import Button, RadioButtonGroup, Select, Slider
+
 
 map_options = GMapOptions(lat=42.36, lng=-71.05, map_type="roadmap", zoom=11)
 
@@ -28,5 +31,9 @@ circle = Circle(x="lon", y="lat", size=15, fill_color="blue", fill_alpha=0.8, li
 plot.add_glyph(source, circle)
 
 plot.add_tools(PanTool(), WheelZoomTool(), BoxSelectTool())
+
+button_group = RadioButtonGroup(labels=["Qin Mo", "Deng Qhin Mo", "Josh Deng"], active=0)
 output_file("gmap_plot.html")
-show(plot)
+layout = column(plot, button_group)
+show(layout)
+#show(widgetbox(button_group))
