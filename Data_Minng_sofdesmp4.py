@@ -1,10 +1,9 @@
 import csv
 class Restaurant:
 
-    def __init__(self, name, address, date,vio_status,vio_level,viodesc,comment,zipcode):
+    def __init__(self, name, address, vio_status,vio_level,viodesc,comment,zipcode):
         self.name = name
         self.address = address
-        self.date = date
         self.vio_status = vio_status
         self.viol_level = vio_level
         self.viodesc = viodesc
@@ -12,14 +11,14 @@ class Restaurant:
         self.zipcode = zipcode
 
     def __str__(self):
-        return 'name: %s' %self.name + '\n' + 'address: %s' %self.address + '\n' + 'date: %s' %self.date + '\n' + 'violation status: %s' %self.vio_status + '\n' + 'violation level: %s' %self.viol_level+ '\n'+ 'violation description: %s' %self.viodesc + '\n' + 'comment: %s' %self.comment + 'zipcode: %s' %self.zipcode
+        return 'name: %s' %self.name + '\n' + 'address: %s' %self.address + '\n' +  'violation status: %s' %self.vio_status + '\n' + 'violation level: %s' %self.viol_level+ '\n'+ 'violation description: %s' %self.viodesc + '\n' + 'comment: %s' %self.comment + 'zipcode: %s' %self.zipcode
 
 def get_restaurants_list(filename):
     restaurant_list = []
     with open(filename, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            restaurant = Restaurant(name = row['businessName'], address = row['Address'], date = row['VIOLDTTM'], vio_status = row['ViolStatus'], vio_level = row['ViolLevel'], viodesc = row['ViolDesc'], comment = row['Comments'], zipcode = row['ZIP'])
+            restaurant = Restaurant(name = row['businessName'], address = row['Address'], vio_status = row['ViolStatus'], vio_level = row['ViolLevel'], viodesc = row['ViolDesc'], comment = row['Comments'], zipcode = row['ZIP'])
             #print(restaurant)
             restaurant_list.append(restaurant)
     return restaurant_list
@@ -91,8 +90,32 @@ class Restaurants:
             severities[i] = percentage
         return severities
 
-    
+    def get_violation_by_zipcode(self):
+        """Return the total number of fails in a zipcode region divided by total number of fails in boston"""
+        fail_by_zipcode = {}
+        fail = self.histogram_fail()
+        total_fails_boston = sum(fail.values())
+        zipcodes = self.group_by_zipcode()
+        for zipcode in zipcodes:
+            total_fails_zipcode = 0
+            for restaurant in zipcodes[zipcode]:
+                if restaurant not in fail.keys():
+                    total_fails_zipcode += 0
+                else:
+                    total_fails_zipcode += fail[restaurant]
+            fail_by_zipcode[zipcode] = total_fails_zipcode/total_fails_boston * 100
+        return fail_by_zipcode
 
+
+
+def run(filename,listname):
+    name = Restaurants(listname, get_restaurants_list(filename))
+    vio_percentage = name.get_violation_percentage()
+    severity1 = name.get_severity_percentage('*')
+    severity2 = name.get_severity_percentage('**')
+    severity3 = name.get_severity_percentage('***')
+    fail_percentage_zipcode = name.get_violation_by_zipcode()
+    return vio_percentage, severity1, severity2, severity3, fail_percentage_zipcode
 
 
 
@@ -104,11 +127,6 @@ class Restaurants:
 
 
 if __name__ == "__main__":
-    Boston = Restaurants('boston', get_restaurants_list('test2.csv'))
-    #severity2 = Boston.histogram_severity('**')
-    #fail = Boston.histogram_fail()
-    #inspection = Boston.histogram_inspection_times()
-    #zipcode = Boston.group_by_zipcode()
-    vio_percentage = Boston.get_violation_percentage()
-    print(vio_percentage)
+    result = run('test2.csv', 'Boston')
+    print(result)
 
