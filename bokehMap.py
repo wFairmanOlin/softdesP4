@@ -1,16 +1,18 @@
 from bokeh.io import output_file, show, curdoc
 from bokeh.models import (
-  GMapPlot, GMapOptions, ColumnDataSource, CustomJS, Circle, Range1d, PanTool, WheelZoomTool, BoxSelectTool
+  GMapPlot, GMapOptions, ColumnDataSource,
+  CustomJS, Circle, Range1d, PanTool, WheelZoomTool, BoxSelectTool
 )
 from bokeh.layouts import widgetbox, column
 from bokeh.models.widgets import RadioButtonGroup
 from bokeh.models.callbacks import CustomJS
+import pprint
+
+dataSource = dict(lat=[42.2932, 42.2936, 42.2994], lon=[-71.2637, -71.3059, -71.2660])
 
 
 
-
-
-map_options = GMapOptions(lat=42.36, lng=-71.05, map_type="roadmap", zoom=9)
+map_options = GMapOptions(lat=42.36, lng=-71.05, map_type="roadmap", zoom=10)
 
 plot = GMapPlot(x_range=Range1d(), y_range=Range1d(), map_options=map_options)
 plot.title.text = "Boston"
@@ -27,11 +29,11 @@ plot.api_key = " AIzaSyBt2HETloZkCelX_XuVAXAgRkds_nBhNZQ"
 #data = {'olin': [42.2932, -71.2637], 'wellsley': [42.2936, -71.3059]}
 
 source = ColumnDataSource(
-    data=dict(
-        lat=[42.2932, 42.2936],
-        lon=[-71.2637, -71.3059],
+    data=dataSource
+    # data=dict(
+    #     lat=[42.2932, 42.2936, 42.2994],
+    #     lon=[-71.2637, -71.3059, -71.2660],
     )
-)
 
 circle = Circle(x="lon", y="lat", size=15, fill_color="green", fill_alpha=0.8, line_color=None)
 
@@ -41,13 +43,17 @@ plot.add_tools(PanTool(), WheelZoomTool(), BoxSelectTool())
 
 def callback(new):
     i = new
+    color = ['blue', 'red', 'green']
     print(i)
-    data = source.data
+    data = dataSource
     x = data['lon']
     y = data['lat']
+    print(x,y)
     x = x[i]
     y = y[i]
-    curdoc().add_root(column(plot, button_group))
+    plot.renderers[0].glyph.fill_color=color[i]
+    #source.data = dict(lon=[x], lat=[y])
+    #curdoc().add_root(column(plot, button_group))
 # callback = CustomJS(args=dict(p=circle, source=source), code="""
 #             var radio_value = cb_obj.active;
 #             var data = source.data;
