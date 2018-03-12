@@ -6,69 +6,72 @@ from bokeh.models import (
 from bokeh.layouts import widgetbox, column
 from bokeh.models.widgets import RadioButtonGroup
 from bokeh.models.callbacks import CustomJS
+from bokeh.colors import RGB
 import pprint
 
-dataSource = dict(lat=[42.2932, 42.2936, 42.2994], lon=[-71.2637, -71.3059, -71.2660])
 
+def generate_colorScale():
+    """
+    return a list of colors for each glyph
+    """
+    pass
+#Examples of custom color scale
+#define colors by RGB value
+color_range = [RGB(255,0,0), RGB(255,100,0), RGB(255,200,0)]
+#define colors by name
+color = ['green', 'blue', 'red']
 
+#data source containing the location and color of each glyph
+dataSource = dict(lat=[42.2932, 42.2936, 42.2994],
+                lon=[-71.2637, -71.3059, -71.2660], color=color_range)
 
+#Converts our data points into a bokeh readable object
+source = ColumnDataSource(
+    data=dataSource)
+
+#Creates the glyphs for the map
+circle = Circle(x="lon", y="lat", size=15, fill_color="color", fill_alpha=0.8, line_color=None)
+
+#Generates geographical map of Boston
 map_options = GMapOptions(lat=42.36, lng=-71.05, map_type="roadmap", zoom=10)
-
 plot = GMapPlot(x_range=Range1d(), y_range=Range1d(), map_options=map_options)
 plot.title.text = "Boston"
-
-# For GMaps to function, Google requires you obtain and enable an API key:
-#
-#     https://developers.google.com/maps/documentation/javascript/get-api-key
-#
-# Replace the value below with your personal API key:
+#My personal google api key
 plot.api_key = " AIzaSyBt2HETloZkCelX_XuVAXAgRkds_nBhNZQ"
 
-#42.2932° N, 71.2637° W
-#42.2936° N, 71.3059° W
-#data = {'olin': [42.2932, -71.2637], 'wellsley': [42.2936, -71.3059]}
 
-source = ColumnDataSource(
-    data=dataSource
-    # data=dict(
-    #     lat=[42.2932, 42.2936, 42.2994],
-    #     lon=[-71.2637, -71.3059, -71.2660],
-    )
-
-circle = Circle(x="lon", y="lat", size=15, fill_color="green", fill_alpha=0.8, line_color=None)
-
+#Adds glyph and tools to the map
 plot.add_glyph(source, circle)
-
 plot.add_tools(PanTool(), WheelZoomTool(), BoxSelectTool())
 
+
 def callback(new):
+    """
+    Defines the the series of events that occur
+    after a radio button is clicked.
+    """
+    #value of the clicked radio button
     i = new
-    color = ['blue', 'red', 'green']
-    print(i)
-    data = dataSource
-    x = data['lon']
-    y = data['lat']
-    print(x,y)
-    x = x[i]
-    y = y[i]
-    plot.renderers[0].glyph.fill_color=color[i]
-    #source.data = dict(lon=[x], lat=[y])
-    #curdoc().add_root(column(plot, button_group))
-# callback = CustomJS(args=dict(p=circle, source=source), code="""
-#             var radio_value = cb_obj.active;
-#             var data = source.data;
-#             x = data['lon'];
-#             y = data['lat'];
-#             x = x[radio_value]
-#             y = y[radio_value]
-#         source.change.emit();
-#         """)
+    #print(i)
 
+    #example of isolating certain data points when clicked
+    # data = dataSource
+    # x = data['lon']
+    # y = data['lat']
+    # print(x,y)
+    # x = x[i]
+    # y = y[i]
 
-button_group = RadioButtonGroup(labels=["Qheng Mo", "Deng Qheng", "Josh Deng"], active=0)#, callback=callback)
+    #example of changing the color of data points when clicked
+    # plot.renderers[0].glyph.fill_color=color[i]
+    # source.data = dict(lon=[x], lat=[y])
+
+#Initiates the objects into the html web page
+button_group = RadioButtonGroup(labels=["Qheng Mo", "Deng Qheng", "Josh Deng"], active=0)
 output_file("gmap_plot.html")
+#defines the layouts of the objects
 layout = column(plot, button_group)
+#defines what happpens on a button click event
 button_group.on_click(callback)
+#Begins the script
 curdoc().add_root(column(plot, button_group))
-#show(column(plot, button_group))
-#show(widgetbox(button_group))
