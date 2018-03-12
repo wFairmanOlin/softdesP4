@@ -4,7 +4,7 @@ from bokeh.models import (
   CustomJS, Circle, Range1d, PanTool, WheelZoomTool, BoxSelectTool
 )
 from bokeh.layouts import widgetbox, column
-from bokeh.models.widgets import RadioButtonGroup
+from bokeh.models.widgets import RadioButtonGroup, Select
 from bokeh.models.callbacks import CustomJS
 from bokeh.colors import RGB
 import pprint
@@ -15,6 +15,30 @@ def generate_colorScale():
     return a list of colors for each glyph
     """
     pass
+
+def callback(new):
+    """
+    Defines the the series of events that occur
+    after a radio button is clicked.
+    """
+    #value of the clicked radio button
+    i = new
+    #print(i)
+
+    #example of isolating certain data points when clicked
+    # data = dataSource
+    # x = data['lon']
+    # y = data['lat']
+    # print(x,y)
+    # x = x[i]
+    # y = y[i]
+
+    #example of changing the color of data points when clicked
+    # plot.renderers[0].glyph.fill_color=color[i]
+    # source.data = dict(lon=[x], lat=[y])
+    
+def show_severity(attr, old, new):
+    print(new)
 #Examples of custom color scale
 #define colors by RGB value
 color_range = [RGB(255,0,0), RGB(255,100,0), RGB(255,200,0)]
@@ -65,13 +89,16 @@ def callback(new):
     #example of changing the color of data points when clicked
     # plot.renderers[0].glyph.fill_color=color[i]
     # source.data = dict(lon=[x], lat=[y])
-
+def show_severity(attr, old, new):
+    print(new)
 #Initiates the objects into the html web page
-button_group = RadioButtonGroup(labels=["Qheng Mo", "Deng Qheng", "Josh Deng"], active=0)
+button_group = RadioButtonGroup(labels=["Amon", "Ben", "Paul"], active=0)
+select = Select(title="Severity Level:", value="high", options=["high", "medium", "low"])
 output_file("gmap_plot.html")
 #defines the layouts of the objects
-layout = column(plot, button_group)
+layout = column(plot, button_group, select)
 #defines what happpens on a button click event
 button_group.on_click(callback)
+select.on_change('value', show_severity)
 #Begins the script
-curdoc().add_root(column(plot, button_group))
+curdoc().add_root(layout)#column(plot, button_group))
