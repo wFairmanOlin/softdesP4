@@ -30,7 +30,7 @@ def get_restaurants_list(filename):
         reader = csv.DictReader(csvfile)
         for row in reader:
             restaurant = Restaurant(name=row['businessName'],
-                                    address=row['Address'] + row['CITY'] + row['STATE'] + row['ZIP'],
+                                    address=row['Address'] + ' ' + row['CITY'] + ' ' + row['STATE'] + ' ' + row['ZIP'],
                                     vio_status=row['ViolStatus'],
                                     vio_level=row['ViolLevel'], viodesc=row['ViolDesc'], comment=row['Comments'],
                                     zipcode=row['ZIP'])
