@@ -1,10 +1,13 @@
 from geopy.geocoders import Nominatim
-from data_Mining_sofdesmp4.py import *
+from Data_Minng_sofdesmp4 import *
 
 
-result = run('mayorsfoodcourt.csv', 'Boston')
 
-geolocator = Nominatim()
-location = geolocator.geocode("175 5th Avenue NYC")
-print((location.latitude, location.longitude))
-print(location.address)
+
+if __name__ == "__main__":
+    result = run('mayorsfoodcourt.csv', 'Boston')
+
+    geolocator = Nominatim()
+    location = geolocator.geocode("175 5th Avenue NYC")
+    print((location.latitude, location.longitude))
+    print(location.address)
