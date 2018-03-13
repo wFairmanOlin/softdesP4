@@ -19,14 +19,17 @@ class Restaurant:
         # self.location = tuple(lon_la)
 
     def __str__(self):
-        return 'name: %s' %self.name + '\n' + 'address: %s' %self.address + '\n' +  'violation status: %s' %self.vio_status + '\n' + 'violation level: %s' %self.viol_level+ '\n'+ 'violation description: %s' %self.viodesc + '\n' + 'comment: %s' %self.comment + 'zipcode: %s' %self.zipcode
+        return ('name: %s' %self.name + '\n' + 'address: %s' %self.address + '\n' +  'violation status: %s' %self.vio_status + '\n'
+                + 'violation level: %s' %self.viol_level+ '\n'+ 'violation description: %s' %self.viodesc + '\n' + 'comment: %s' %self.comment + 'zipcode: %s' %self.zipcode
+                )
 
 def get_restaurants_list(filename):
     restaurant_list = []
     with open(filename,encoding = "ISO-8859-1", newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            restaurant = Restaurant(name = row['businessName'], address = row['Address'], vio_status = row['ViolStatus'], vio_level = row['ViolLevel'], viodesc = row['ViolDesc'], comment = row['Comments'], zipcode = row['ZIP'])
+            restaurant = Restaurant(name = row['businessName'], address = row['Address'], vio_status = row['ViolStatus'],
+                            vio_level = row['ViolLevel'], viodesc = row['ViolDesc'], comment = row['Comments'], zipcode = row['ZIP'], location= row ["Location"])
             #print(restaurant)
             restaurant_list.append(restaurant)
     return restaurant_list
@@ -199,5 +202,3 @@ if __name__ == "__main__":
     # save severity3 percentage dictionary as .pickle
     with open('analyzed_data/severity3_violation_percentage.pickle', 'wb') as handle:
         pickle.dump(result[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-
