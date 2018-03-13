@@ -1,2 +1,4 @@
 #Boston Restaurant Inspection Data
 *.csv
+.DS_Store
+.idea
