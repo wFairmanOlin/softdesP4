@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dad1ea10-7038-4755-9673-a81137fe6706" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Read_data.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.~lock.mayorsfoodcourt.csv#" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analyzed_data/restaurant_violation_percentage.pickle" afterPath="$PROJECT_DIR$/analyzed_data/restaurant_violation_percentage.pickle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analyzed_data/severity1_violation_percentage.pickle" afterPath="$PROJECT_DIR$/analyzed_data/severity1_violation_percentage.pickle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analyzed_data/severity2_violation_percentage.pickle" afterPath="$PROJECT_DIR$/analyzed_data/severity2_violation_percentage.pickle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analyzed_data/severity3_violation_percentage.pickle" afterPath="$PROJECT_DIR$/analyzed_data/severity3_violation_percentage.pickle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analyzed_data/zipcode_violation_percentage.pickle" afterPath="$PROJECT_DIR$/analyzed_data/zipcode_violation_percentage.pickle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data_Minng_sofdesmp4.py" afterPath="$PROJECT_DIR$/Data_Minng_sofdesmp4.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analyzed_data/restaurant_violation_percentage.txt" afterPath="$PROJECT_DIR$/analyzed_data/restaurant_violation_percentage.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analyzed_data/severity1_violation_percentage.txt" afterPath="$PROJECT_DIR$/analyzed_data/severity1_violation_percentage.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analyzed_data/severity2_violation_percentage.txt" afterPath="$PROJECT_DIR$/analyzed_data/severity2_violation_percentage.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analyzed_data/severity3_violation_percentage.txt" afterPath="$PROJECT_DIR$/analyzed_data/severity3_violation_percentage.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analyzed_data/zipcode_violation_percentage.txt" afterPath="$PROJECT_DIR$/analyzed_data/zipcode_violation_percentage.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,23 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Data_Minng_sofdesmp4.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Data_Minng_sofdesmp4.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Data_Minng_sofdesmp4.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Read_data.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Read_data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="396">
+              <caret line="28" column="96" lean-forward="true" selection-start-line="28" selection-start-column="96" selection-end-line="28" selection-end-column="96" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -53,10 +48,11 @@
       <file leaf-file-name="bokehMap.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bokehMap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="34" column="45" lean-forward="false" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
+            <state relative-caret-position="828">
+              <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
+                <marker date="1520911164312" expanded="true" signature="3141:3155" ph="..." />
               </folding>
             </state>
           </provider>
@@ -118,8 +114,9 @@
       <list>
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/test_data - Sheet1.csv" />
-        <option value="$PROJECT_DIR$/Data_Minng_sofdesmp4.py" />
         <option value="$PROJECT_DIR$/Read_data.py" />
+        <option value="$PROJECT_DIR$/analyzed_data/severity1_violation_percentage.txt" />
+        <option value="$PROJECT_DIR$/Data_Minng_sofdesmp4.py" />
       </list>
     </option>
   </component>
@@ -179,7 +176,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Read_data">
+  <component name="RunManager" selected="Python.Data_Minng_sofdesmp4">
     <configuration name="Data_Minng_sofdesmp4" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -274,8 +271,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Read_data" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Data_Minng_sofdesmp4" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Data_Minng_sofdesmp4" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Read_data" />
         <item index="2" class="java.lang.String" itemvalue="Python.bokehMap" />
         <item index="3" class="java.lang.String" itemvalue="Python.codecs" />
         <item index="4" class="java.lang.String" itemvalue="Python.csv" />
@@ -333,23 +330,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Data_Minng_sofdesmp4.py</url>
-          <line>120</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Data_Minng_sofdesmp4.py</url>
-          <line>123</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Data_Minng_sofdesmp4.py</url>
-          <line>95</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -357,20 +337,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="8" />
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test2.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test_data - Sheet1.csv" />
     <entry file="file://$PROJECT_DIR$/mayorsfoodcourt.csv">
       <provider selected="true" editor-type-id="LargeFileEditor">
         <state relative-caret-position="0">
@@ -650,10 +621,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bokehMap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="34" column="45" lean-forward="false" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
+        <state relative-caret-position="828">
+          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
             <element signature="e#0#46#0" expanded="true" />
+            <marker date="1520911164312" expanded="true" signature="3141:3155" ph="..." />
           </folding>
         </state>
       </provider>
@@ -666,20 +638,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data_Minng_sofdesmp4.py">
+    <entry file="file://$PROJECT_DIR$/Read_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+        <state relative-caret-position="270">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Read_data.py">
+    <entry file="file://$PROJECT_DIR$/analyzed_data/severity2_violation_percentage.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="395" lean-forward="false" selection-start-line="0" selection-start-column="395" selection-end-line="0" selection-end-column="395" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analyzed_data/severity1_violation_percentage.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-23485">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data_Minng_sofdesmp4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="28" column="96" lean-forward="true" selection-start-line="28" selection-start-column="96" selection-end-line="28" selection-end-column="96" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

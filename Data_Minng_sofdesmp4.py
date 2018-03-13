@@ -4,7 +4,7 @@ import simplejson as json
 
 class Restaurant:
 
-    def __init__(self, name, address, vio_status,vio_level,viodesc,comment,zipcode,location):
+    def __init__(self, name, address, vio_status,vio_level,viodesc,comment,zipcode,rating):
         self.name = name
         self.address = address
         self.vio_status = vio_status
@@ -12,10 +12,11 @@ class Restaurant:
         self.viodesc = viodesc
         self.comment = comment
         self.zipcode = zipcode
-        lon_la = []
-        for i in location.strip('()').split():
-            lon_la.append(float(i.strip(',')))
-        self.location = tuple(lon_la)
+        self.rating = rating
+        # lon_la = []
+        # for i in location.strip('()').split():
+        #     lon_la.append(float(i.strip(',')))
+        # self.location = tuple(lon_la)
 
     def __str__(self):
         return 'name: %s' %self.name + '\n' + 'address: %s' %self.address + '\n' +  'violation status: %s' %self.vio_status + '\n' + 'violation level: %s' %self.viol_level+ '\n'+ 'violation description: %s' %self.viodesc + '\n' + 'comment: %s' %self.comment + 'zipcode: %s' %self.zipcode
@@ -86,16 +87,39 @@ class Restaurants:
         return violation_percentage
 
     def get_severity_percentage(self,severity_level):
-        """Return the percentage of * failing cases out of all failing cases"""
+        """Return the percentage of * failing cases out of all inspection cases"""
         severities = {}
-        fail = self.histogram_fail()
+        num_inspection = self.histogram_inspection_times()
         severity = self.histogram_severity(severity_level)
-        for i in fail:
+        for i in num_inspection:
             if i not in severity.keys():
                 severity[i] = 0
-            percentage = severity[i] / fail[i] * 100
+            percentage = severity[i] / num_inspection[i] * 100
+            #print(percentage)
             severities[i] = percentage
+        #print(severities)
         return severities
+
+    def sort_all_3_severity_percentage(self):
+        allseverity1 = self.get_severity_percentage('*')
+        #print(allseverity1)
+        allseverity2 = self.get_severity_percentage('**')
+        allseverity3 = self.get_severity_percentage('***')
+        severity1 = {}
+        severity2 = {}
+        severity3 = {}
+        for i in allseverity3:
+            if i not in allseverity2.keys():
+                allseverity2[i] = 0
+            if i not in allseverity1.keys():
+                allseverity1[i] = 0
+            if allseverity3[i] == max(allseverity3[i], allseverity2[i], allseverity1[i]):
+                severity3[i] = allseverity3[i]
+            elif allseverity2[i] == max(allseverity3[i], allseverity2[i], allseverity1[i]):
+                severity2[i] = allseverity2[i]
+            else:
+                severity1[i] = allseverity1[i]
+        return severity1, severity2, severity3
 
     def get_violation_by_zipcode(self):
         """Return the total number of fails in a zipcode region divided by total number of fails in boston"""
@@ -114,13 +138,18 @@ class Restaurants:
         return fail_by_zipcode
 
 
-
 def run(filename,listname):
     name = Restaurants(listname, get_restaurants_list(filename))
     vio_percentage = name.get_violation_percentage()
-    severity1 = name.get_severity_percentage('*')
-    severity2 = name.get_severity_percentage('**')
-    severity3 = name.get_severity_percentage('***')
+    severity1, severity2, severity3 = name.sort_all_3_severity_percentage()
+    # print(severity1)
+    # print(severity2)
+    # print(severity3)
+    # for i in severity1:
+    #     if i in severity3.keys() or i in severity2.keys():
+    #         print(i, 'False')
+    #     else:
+    #         print('True')
     fail_percentage_zipcode = name.get_violation_by_zipcode()
     return vio_percentage, severity1, severity2, severity3, fail_percentage_zipcode
 
@@ -171,6 +200,4 @@ if __name__ == "__main__":
     with open('analyzed_data/severity3_violation_percentage.pickle', 'wb') as handle:
         pickle.dump(result[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-
-    print(result)
 
