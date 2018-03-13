@@ -4,7 +4,7 @@ import simplejson as json
 
 class Restaurant:
 
-    def __init__(self, name, address, vio_status,vio_level,viodesc,comment,zipcode):
+    def __init__(self, name, address, vio_status,vio_level,viodesc,comment,zipcode,location):
         self.name = name
         self.address = address
         self.vio_status = vio_status
@@ -12,6 +12,10 @@ class Restaurant:
         self.viodesc = viodesc
         self.comment = comment
         self.zipcode = zipcode
+        lon_la = []
+        for i in location.strip('()').split():
+            lon_la.append(float(i.strip(',')))
+        self.location = tuple(lon_la)
 
     def __str__(self):
         return 'name: %s' %self.name + '\n' + 'address: %s' %self.address + '\n' +  'violation status: %s' %self.vio_status + '\n' + 'violation level: %s' %self.viol_level+ '\n'+ 'violation description: %s' %self.viodesc + '\n' + 'comment: %s' %self.comment + 'zipcode: %s' %self.zipcode
