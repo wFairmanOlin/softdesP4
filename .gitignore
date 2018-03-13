@@ -2,3 +2,7 @@
 *.csv
 .DS_Store
 .idea
+.lock.*.csv
+*.txt
+*.pickle
+/analyzed_data/*
