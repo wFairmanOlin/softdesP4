@@ -10,8 +10,7 @@ from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.parse import urlencode
 
-
-#Get Rating from Yelp
+# Get Rating from Yelp
 
 # API constants.
 API_HOST = 'https://api.yelp.com'
@@ -20,6 +19,7 @@ BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 
 API_KEY = '6VjxLN9LBKQGN5ioh-Uq0xbmWEmBywgAb1C1SZDBYx0AbCRbmjymbhzgLzqaTTn3XFFyZzCDfc8q-IU_iEhJiRkDbhR32DgV0xe7k1VKvlj1GvNjhTsyd8eBwzOoWnYx'
 SEARCH_LIMIT = 1
+
 
 def request(host, path, api_key, url_params=None):
     """Given your API_KEY, send a GET request to the API.
@@ -100,13 +100,12 @@ def query_api(term, location):
     business_id = businesses[0]['id']
 
     print(u'{0} businesses found, querying business info ' \
-        'for the top result "{1}" ...'.format(
-            len(businesses), business_id))
+          'for the top result "{1}" ...'.format(
+        len(businesses), business_id))
     response = get_business(API_KEY, business_id)
 
     print(u'Result for business "{0}" found:'.format(business_id))
     return response
-
 
 
 def get_restaurant_rating(restaurant, location):
@@ -130,6 +129,7 @@ def get_restaurant_rating(restaurant, location):
                 error.read(),
             )
         )
+
 
 class Restaurant:
     def __init__(self, name, address, vio_status, vio_level, viodesc, comment, zipcode):
@@ -224,9 +224,9 @@ class Restaurants:
             violation_percentage[i]['address'] = num_inspection[i]['address']
             violation_percentage[i]['percentage'] = percentage
 
+        # unit test to check one entry in violation percentage dictionary
         # for i in violation_percentage:
         #     print(i, violation_percentage[i], '\n')
-        #     print(len(violation_percentage[i]))
         #     break
 
         return violation_percentage
@@ -238,33 +238,24 @@ class Restaurants:
         severity = self.histogram_severity(severity_level)
 
         for i in num_inspection:
-            print(i, num_inspection[i], '\n')
-            break
-
-        for i in num_inspection:
             if i not in severity.keys():
                 severity[i] = 0
             percentage = severity[i] / num_inspection[i]['inspection'] * 100
             # print(percentage)
             severities[i] = {}
             severities[i]['percentage'] = percentage
-            severities[i]['address'] = num_inspection
-
-        #for i in severities:
-            #print(i, severities[i], '\n')
-            #print(len(severities[i]))
-            #break
+            severities[i]['address'] = num_inspection[i]['address']
 
         return severities
 
     def sort_all_3_severity_percentage(self):
         allseverity1 = self.get_severity_percentage('*')  # all restaurants with severity level 1
-        count = 0
-        while count < 1:
-            for i in allseverity1:
-                #print(len(allseverity1[i]))
-                #print(allseverity1[i], '\n')
-                count += 1
+
+        # # unit test to check one entry in allseverity1 dictionary
+        # for i in allseverity1:
+        #     print(i, allseverity1[i], '\n')
+        #     break
+
         allseverity2 = self.get_severity_percentage('**')  # all restaurants with severity level 2
         allseverity3 = self.get_severity_percentage('***')  # all restaurants with severity level 2
         severity1 = {}  # restaurants with severity level 1 as the highest percentage among 3 levels
@@ -322,7 +313,7 @@ class Restaurants:
         violation = self.get_violation_percentage()
         for restaurant in violation.keys():
             if restaurant_rating.get(restaurant, 'NA') == 'NA':
-                yelp_rating = get_restaurant_rating(restaurant,violation[restaurant]['address'])
+                yelp_rating = get_restaurant_rating(restaurant, violation[restaurant]['address'])
                 if yelp_rating == None:
                     restaurant_rating[restaurant] = 'No rating'
                 else:
@@ -335,52 +326,52 @@ def run(filename, listname):
     vio_percentage = name.get_violation_percentage()
     severity1, severity2, severity3 = name.sort_all_3_severity_percentage()
     fail_percentage_zipcode = name.get_violation_by_zipcode()
-    #rating = name.get_rating(API_KEY, SEARCH_LIMIT)
+    # rating = name.get_rating(API_KEY, SEARCH_LIMIT)
     rating = 0
     return vio_percentage, severity1, severity2, severity3, rating, fail_percentage_zipcode
 
 
 if __name__ == "__main__":
     result = run('mayorsfoodcourt.csv', 'Boston')
-    # # save violation percentage dictionary as a txt
-    # with open("analyzed_data/restaurant_violation_percentage.txt", "w") as output:
-    #     output.write(json.dumps(result[0]))
-    #
-    # # save violation percentage dictionary as .pickle
-    # with open('analyzed_data/restaurant_violation_percentage.pickle', 'wb') as handle:
-    #     pickle.dump(result[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
-    #
-    # # save zipcode percentage dictionary as a txt
-    # with open("analyzed_data/zipcode_violation_percentage.txt", "w") as output:
-    #     output.write(json.dumps(result[-1]))
-    #
-    # # save zipcode percentage dictionary as .pickle
-    # with open('analyzed_data/zipcode_violation_percentage.pickle', 'wb') as handle:
-    #     pickle.dump(result[-1], handle, protocol=pickle.HIGHEST_PROTOCOL)
-    #
-    # # save severity1 percentage dictionary as a txt
-    # with open("analyzed_data/severity1_violation_percentage.txt", "w") as output:
-    #     output.write(json.dumps(result[1]))
-    #
-    # # save severity1 percentage dictionary as .pickle
-    # with open('analyzed_data/severity1_violation_percentage.pickle', 'wb') as handle:
-    #     pickle.dump(result[1], handle, protocol=pickle.HIGHEST_PROTOCOL)
-    #
-    # # save severity2 percentage dictionary as a txt
-    # with open("analyzed_data/severity2_violation_percentage.txt", "w") as output:
-    #     output.write(json.dumps(result[2]))
-    #
-    # # save severity2 percentage dictionary as .pickle
-    # with open('analyzed_data/severity2_violation_percentage.pickle', 'wb') as handle:
-    #     pickle.dump(result[2], handle, protocol=pickle.HIGHEST_PROTOCOL)
-    #
-    # # save severity3 percentage dictionary as a txt
-    # with open("analyzed_data/severity3_violation_percentage.txt", "w") as output:
-    #     output.write(json.dumps(result[3]))
-    #
-    # # save severity3 percentage dictionary as .pickle
-    # with open('analyzed_data/severity3_violation_percentage.pickle', 'wb') as handle:
-    #     pickle.dump(result[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
+    # save violation percentage dictionary as a txt
+    with open("analyzed_data/restaurant_violation_percentage.txt", "w") as output:
+        output.write(json.dumps(result[0]))
+
+    # save violation percentage dictionary as .pickle
+    with open('analyzed_data/restaurant_violation_percentage.pickle', 'wb') as handle:
+        pickle.dump(result[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    # save zipcode percentage dictionary as a txt
+    with open("analyzed_data/zipcode_violation_percentage.txt", "w") as output:
+        output.write(json.dumps(result[-1]))
+
+    # save zipcode percentage dictionary as .pickle
+    with open('analyzed_data/zipcode_violation_percentage.pickle', 'wb') as handle:
+        pickle.dump(result[-1], handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    # save severity1 percentage dictionary as a txt
+    with open("analyzed_data/severity1_violation_percentage.txt", "w") as output:
+        output.write(json.dumps(result[1]))
+
+    # save severity1 percentage dictionary as .pickle
+    with open('analyzed_data/severity1_violation_percentage.pickle', 'wb') as handle:
+        pickle.dump(result[1], handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    # save severity2 percentage dictionary as a txt
+    with open("analyzed_data/severity2_violation_percentage.txt", "w") as output:
+        output.write(json.dumps(result[2]))
+
+    # save severity2 percentage dictionary as .pickle
+    with open('analyzed_data/severity2_violation_percentage.pickle', 'wb') as handle:
+        pickle.dump(result[2], handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    # save severity3 percentage dictionary as a txt
+    with open("analyzed_data/severity3_violation_percentage.txt", "w") as output:
+        output.write(json.dumps(result[3]))
+
+    # save severity3 percentage dictionary as .pickle
+    with open('analyzed_data/severity3_violation_percentage.pickle', 'wb') as handle:
+        pickle.dump(result[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     # # save rating dictionary as a txt
     # with open("analyzed_data/rating.txt", "w") as output:
