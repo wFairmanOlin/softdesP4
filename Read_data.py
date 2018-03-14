@@ -9,4 +9,5 @@ def read_json(filename):
 
 if __name__ == '__main__':
     violation = read_json("analyzed_data/restaurant_violation_percentage.txt")
+    print(violation)
     print(len(violation))
