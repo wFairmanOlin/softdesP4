@@ -26,11 +26,11 @@ def colormap(filename):
 def run():
     violation_color = colormap('analyzed_data/restaurant_violation_percentage.txt')
     # print(violation_color)
+
     severity1_color = colormap('analyzed_data/severity1_violation_percentage.txt')
     severity2_color = colormap('analyzed_data/severity2_violation_percentage.txt')
     severity3_color = colormap('analyzed_data/severity3_violation_percentage.txt')
     return violation_color, severity1_color, severity2_color, severity3_color
-
 
 if __name__ == "__main__":
     result = run()
@@ -42,27 +42,27 @@ if __name__ == "__main__":
     # save violation percentage dictionary as .pickle
     with open('color_data/restaurant_violation_percentage.pickle', 'wb') as handle:
         pickle.dump(result[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
-        #
-        # # save severity1 percentage dictionary as a txt
-        # with open("color_data/severity1_violation_percentage.txt", "w") as output:
-        #     output.write(json.dumps(result[1]))
-        #
-        # # save severity1 percentage dictionary as .pickle
-        # with open('color_data/severity1_violation_percentage.pickle', 'wb') as handle:
-        #     pickle.dump(result[1], handle, protocol=pickle.HIGHEST_PROTOCOL)
-        #
-        # # save severity2 percentage dictionary as a txt
-        # with open("color_data/severity2_violation_percentage.txt", "w") as output:
-        #     output.write(json.dumps(result[2]))
-        #
-        # # save severity2 percentage dictionary as .pickle
-        # with open('color_data/severity2_violation_percentage.pickle', 'wb') as handle:
-        #     pickle.dump(result[2], handle, protocol=pickle.HIGHEST_PROTOCOL)
-        #
-        # # save severity3 percentage dictionary as a txt
-        # with open("color_data/severity3_violation_percentage.txt", "w") as output:
-        #     output.write(json.dumps(result[3]))
-        #
-        # # save severity3 percentage dictionary as .pickle
-        # with open('color_data/severity3_violation_percentage.pickle', 'wb') as handle:
-        #     pickle.dump(result[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    # save severity1 percentage dictionary as a txt
+    with open("color_data/severity1_violation_percentage.txt", "w") as output:
+        output.write(json.dumps(result[1]))
+
+    # save severity1 percentage dictionary as .pickle
+    with open('color_data/severity1_violation_percentage.pickle', 'wb') as handle:
+        pickle.dump(result[1], handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    # save severity2 percentage dictionary as a txt
+    with open("color_data/severity2_violation_percentage.txt", "w") as output:
+        output.write(json.dumps(result[2]))
+
+    # save severity2 percentage dictionary as .pickle
+    with open('color_data/severity2_violation_percentage.pickle', 'wb') as handle:
+        pickle.dump(result[2], handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    # save severity3 percentage dictionary as a txt
+    with open("color_data/severity3_violation_percentage.txt", "w") as output:
+        output.write(json.dumps(result[3]))
+
+    # save severity3 percentage dictionary as .pickle
+    with open('color_data/severity3_violation_percentage.pickle', 'wb') as handle:
+        pickle.dump(result[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
