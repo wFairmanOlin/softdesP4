@@ -7,9 +7,9 @@ from bokeh.layouts import widgetbox, column
 from bokeh.models.widgets import RadioButtonGroup, Select
 from bokeh.models.callbacks import CustomJS
 from bokeh.colors import RGB
-import pprint
+from coordinateFinder import *
 
-
+print(works)
 def generate_colorScale():
     """
     return a list of colors for each glyph
@@ -36,7 +36,7 @@ def callback(new):
     #example of changing the color of data points when clicked
     # plot.renderers[0].glyph.fill_color=color[i]
     # source.data = dict(lon=[x], lat=[y])
-    
+
 def show_severity(attr, old, new):
     print(new)
 #Examples of custom color scale
@@ -69,28 +69,7 @@ plot.add_glyph(source, circle)
 plot.add_tools(PanTool(), WheelZoomTool(), BoxSelectTool())
 
 
-def callback(new):
-    """
-    Defines the the series of events that occur
-    after a radio button is clicked.
-    """
-    #value of the clicked radio button
-    i = new
-    #print(i)
 
-    #example of isolating certain data points when clicked
-    # data = dataSource
-    # x = data['lon']
-    # y = data['lat']
-    # print(x,y)
-    # x = x[i]
-    # y = y[i]
-
-    #example of changing the color of data points when clicked
-    # plot.renderers[0].glyph.fill_color=color[i]
-    # source.data = dict(lon=[x], lat=[y])
-def show_severity(attr, old, new):
-    print(new)
 #Initiates the objects into the html web page
 button_group = RadioButtonGroup(labels=["Amon", "Ben", "Paul"], active=0)
 select = Select(title="Severity Level:", value="high", options=["high", "medium", "low"])
