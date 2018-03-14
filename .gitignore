@@ -3,6 +3,6 @@
 .DS_Store
 .idea/*.xml
 .lock.*.csv
-*.txt
 *.pickle
 /analyzed_data/*
+/color_data/*
