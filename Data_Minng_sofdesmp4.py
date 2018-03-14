@@ -1,7 +1,135 @@
+from __future__ import print_function
 import csv
 import pickle
 import simplejson as json
+import argparse
+import requests
+import sys
+import urllib
+from urllib.error import HTTPError
+from urllib.parse import quote
+from urllib.parse import urlencode
 
+
+#Get Rating from Yelp
+
+# API constants.
+API_HOST = 'https://api.yelp.com'
+SEARCH_PATH = '/v3/businesses/search'
+BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
+
+API_KEY = '6VjxLN9LBKQGN5ioh-Uq0xbmWEmBywgAb1C1SZDBYx0AbCRbmjymbhzgLzqaTTn3XFFyZzCDfc8q-IU_iEhJiRkDbhR32DgV0xe7k1VKvlj1GvNjhTsyd8eBwzOoWnYx'
+SEARCH_LIMIT = 1
+
+def request(host, path, api_key, url_params=None):
+    """Given your API_KEY, send a GET request to the API.
+
+    Args:
+        host (str): The domain host of the API.
+        path (str): The path of the API after the domain.
+        API_KEY (str): Your API Key.
+        url_params (dict): An optional set of query parameters in the request.
+
+    Returns:
+        dict: The JSON response from the request.
+
+    Raises:
+        HTTPError: An error occurs from the HTTP request.
+    """
+    url_params = url_params or {}
+    url = '{0}{1}'.format(host, quote(path.encode('utf8')))
+    headers = {
+        'Authorization': 'Bearer %s' % api_key,
+    }
+
+    print(u'Querying {0} ...'.format(url))
+
+    response = requests.request('GET', url, headers=headers, params=url_params)
+
+    return response.json()
+
+
+def search(api_key, term, location):
+    """Query the Search API by a search term and location.
+
+    Args:
+        term (str): The search term passed to the API.
+        location (str): The search location passed to the API.
+
+    Returns:
+        dict: The JSON response from the request.
+    """
+
+    url_params = {
+        'term': term.replace(' ', '+'),
+        'location': location.replace(' ', '+'),
+        'limit': SEARCH_LIMIT
+    }
+    return request(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
+
+
+def get_business(api_key, business_id):
+    """Query the Business API by a business ID.
+
+    Args:
+        business_id (str): The ID of the business to query.
+
+    Returns:
+        dict: The JSON response from the request.
+    """
+    business_path = BUSINESS_PATH + business_id
+
+    return request(API_HOST, business_path, api_key)
+
+
+def query_api(term, location):
+    """Queries the API by the input values from the user.
+
+    Args:
+        term (str): The search term to query.
+        location (str): The location of the business to query.
+    """
+    response = search(API_KEY, term, location)
+
+    businesses = response.get('businesses')
+
+    if not businesses:
+        print(u'No businesses for {0} in {1} found.'.format(term, location))
+        return
+
+    business_id = businesses[0]['id']
+
+    print(u'{0} businesses found, querying business info ' \
+        'for the top result "{1}" ...'.format(
+            len(businesses), business_id))
+    response = get_business(API_KEY, business_id)
+
+    print(u'Result for business "{0}" found:'.format(business_id))
+    return response
+
+
+
+def get_restaurant_rating(restaurant, location):
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('-q', '--term', dest='term', default=restaurant,
+                        type=str, help='Search term (default: %(default)s)')
+    parser.add_argument('-l', '--location', dest='location',
+                        default=location, type=str,
+                        help='Search location (default: %(default)s)')
+
+    input_values = parser.parse_args()
+
+    try:
+        return query_api(input_values.term, input_values.location)
+    except HTTPError as error:
+        sys.exit(
+            'Encountered HTTP error {0} on {1}:\n {2}\nAbort program.'.format(
+                error.code,
+                error.url,
+                error.read(),
+            )
+        )
 
 class Restaurant:
     def __init__(self, name, address, vio_status, vio_level, viodesc, comment, zipcode):
@@ -166,14 +294,27 @@ class Restaurants:
             fail_by_zipcode[zipcode] = total_fails_zipcode / total_fails_boston * 100
         return fail_by_zipcode
 
+    def get_rating(self, api_key, search_limit):
+        """Return a dictionary of restaurant ratings."""
+        restaurant_rating = {}
+        violation = self.get_violation_percentage()
+        for restaurant in violation.keys():
+            if restaurant_rating.get(restaurant, 'NA') == 'NA':
+                yelp_rating = get_restaurant_rating(restaurant,violation[restaurant]['address'])
+                if yelp_rating == None:
+                    restaurant_rating[restaurant] = 'No rating'
+                else:
+                    restaurant_rating[restaurant] = yelp_rating['rating']
+        return restaurant_rating
+
 
 def run(filename, listname):
     name = Restaurants(listname, get_restaurants_list(filename))
     vio_percentage = name.get_violation_percentage()
     severity1, severity2, severity3 = name.sort_all_3_severity_percentage()
-
     fail_percentage_zipcode = name.get_violation_by_zipcode()
-    return vio_percentage, severity1, severity2, severity3, fail_percentage_zipcode
+    rating = name.get_rating(API_KEY, SEARCH_LIMIT)
+    return vio_percentage, severity1, severity2, severity3, rating, fail_percentage_zipcode
 
 
 if __name__ == "__main__":
@@ -217,3 +358,11 @@ if __name__ == "__main__":
     # save severity3 percentage dictionary as .pickle
     with open('analyzed_data/severity3_violation_percentage.pickle', 'wb') as handle:
         pickle.dump(result[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    # save rating dictionary as a txt
+    with open("analyzed_data/rating.txt", "w") as output:
+        output.write(json.dumps(result[4]))
+
+    # save rating dictionary as .pickle
+    with open('analyzed_data/rating.pickle', 'wb') as handle:
+        pickle.dump(result[4], handle, protocol=pickle.HIGHEST_PROTOCOL)
