@@ -6,3 +6,4 @@
 *.pickle
 /analyzed_data/*
 /color_data/*
+.ideal/*
