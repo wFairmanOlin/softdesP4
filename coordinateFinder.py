@@ -9,8 +9,7 @@ def add_coordinates(filename):
     print('results returned...')
     print(len(results))
     print(type(results))
-    i = 0
-    while (i < 100):
+    for i in range(50):
         print('num=', i)
         address = results[i]['address']
         print(address)
@@ -21,8 +20,7 @@ def add_coordinates(filename):
         else:
             results[i]['lon'] = 0
             results[i]['lat'] = 0
-        time.sleep (2000)
-        i += 1
+        time.sleep (5)
     return results
         #time.sleep(100)
 
