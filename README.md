@@ -16,7 +16,7 @@ pip3 install yelp
 
 ```
 
-To run Yelp Fusion API by using the Search API to query for businesses in ```Data_Mining_sofdesmp4.py``` or ```Yelp_Data.py```, install the dependencies by running:
+To run Yelp Fusion API Python using the Search API to query for businesses in ```Data_Mining_sofdesmp4.py``` or ```Yelp_Data.py```, install the dependencies by running:
 
 ```
 pip3 install -r requirements.txt
@@ -30,7 +30,11 @@ Install Matplotlib by running:
 ```
 sudo apt-get install python3-matplotlib
 ```
-### Installing
+Install Geopy
+```
+pip3 install geopy
+```
+### Running
 
 A step by step series of examples that tell you have to get a development env running
 
@@ -52,8 +56,9 @@ End with an example of getting some data out of the system or using it for a lit
 ## Built With
 
 * [Bokeh](https://bokeh.pydata.org/en/latest/) - Used to generate visualization of interactive data.
-* [Yelp Fusion](https://www.yelp.com/developers/documentation/v3/get_started) - Dependency Management
+* [Yelp Fusion API Python](https://www.yelp.com/developers/documentation/v3/get_started) - Used the Search API to query for restaurant rating and food type.
 * [Matplotlib](https://matplotlib.org/) - Used to generate RSS Feeds
+*
 
 
 ## Authors
@@ -63,3 +68,6 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Acknowledgments
 
+* Hat tip to anyone who's code was used
+* Inspiration
+* etc
