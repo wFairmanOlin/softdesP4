@@ -9,7 +9,8 @@ def add_coordinates(filename):
     print('results returned...')
     print(len(results))
     print(type(results))
-    for i in results:
+    i = 0
+    while (i < 100):
         print('num=', i)
         address = results[i]['address']
         print(address)
@@ -21,6 +22,7 @@ def add_coordinates(filename):
             results[i]['lon'] = 0
             results[i]['lat'] = 0
         time.sleep (2000)
+        i += 1
     return results
         #time.sleep(100)
 
@@ -32,6 +34,6 @@ if __name__ == "__main__":
     #print(location.address)
     results = add_coordinates("analyzed_data/severity1_violation_percentage.pickle")
 
-    with open("analyzed_data/completeSeverity1.pickle", "w") as handle:
+    with open("analyzed_data/testSeverity1.pickle", "w") as handle:
         pickle.dump(result[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
     print(results)
