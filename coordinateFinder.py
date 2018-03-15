@@ -20,7 +20,7 @@ def add_coordinates(filename):
         else:
             results[i]['lon'] = 0
             results[i]['lat'] = 0
-        time.sleep (500)
+        time.sleep (2000)
     return results
         #time.sleep(100)
 
