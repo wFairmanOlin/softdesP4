@@ -7,7 +7,11 @@ from bokeh.layouts import widgetbox, column
 from bokeh.models.widgets import RadioButtonGroup, Select
 from bokeh.models.callbacks import CustomJS
 from bokeh.colors import RGB
+from dataProcessing import *
 
+severity1 = generate_dictionary('analyzed_data/completeSeverity1.pickle')
+#severity2 = generate_dictionary('analyzed_data/completeSeverity2.pickle')
+#severity3 = generate_dictionary('analyzed_data/completeSeverity3.pickle')
 def generate_colorScale():
     """
     return a list of colors for each glyph
@@ -37,6 +41,12 @@ def callback(new):
 
 def show_severity(attr, old, new):
     print(new)
+    # if new == 'high':
+    #     source.data = severity3
+    # elif new == 'medium':
+    #     source.data = severity2
+    # else:
+    #     source.data = severity1
 #Examples of custom color scale
 #define colors by RGB value
 color_range = [RGB(255,0,0), RGB(255,100,0), RGB(255,200,0)]
@@ -49,7 +59,7 @@ dataSource = dict(lat=[42.2932, 42.2936, 42.2994],
 
 #Converts our data points into a bokeh readable object
 source = ColumnDataSource(
-    data=dataSource)
+    data=severity1)
 
 #Creates the glyphs for the map
 circle = Circle(x="lon", y="lat", size=15, fill_color="color", fill_alpha=0.8, line_color=None)
@@ -70,7 +80,7 @@ plot.add_tools(PanTool(), WheelZoomTool(), BoxSelectTool())
 
 #Initiates the objects into the html web page
 button_group = RadioButtonGroup(labels=["Amon", "Ben", "Paul"], active=0)
-select = Select(title="Severity Level:", value="high", options=["high", "medium", "low"])
+select = Select(title="Severity Level:", value="low", options=["high", "medium", "low"])
 output_file("gmap_plot.html")
 #defines the layouts of the objects
 layout = column(plot, button_group, select)
