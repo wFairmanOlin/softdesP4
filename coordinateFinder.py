@@ -9,30 +9,29 @@ def add_coordinates(filename):
     print('results returned...')
     print(len(results))
     print(type(results))
-    for key in results:
-        a = results[key]
-        print(key)
-        for key1 in a:
-            print(key1)
-            print(type(a['address']))
-            for key2 in a['address']:
-                print(type(key2))
-        #print(results[key])
-        pass
-        #i = results[key]
-        #print(i)
-        #address = i['address']
-        #print(address)
-        #print('next \n\n')
-        #location = geolocator.geocode(address)
-        #i['lon'] = location.latitude
-        #i['lat'] = location.longitude
+    for i in results:
+        print('num=', i)
+        address = results[i]['address']
+        print(address)
+        location = geolocator.geocode(address)
+        if location is not None:
+            results[i]['lon'] = location.latitude
+            results[i]['lat'] = location.longitude
+        else:
+            results[i]['lon'] = 0
+            results[i]['lat'] = 0
+        time.sleep (500)
+    return results
         #time.sleep(100)
 
 
 if __name__ == "__main__":
 
-    #location = geolocator.geocode("175 5th Avenue NYC")
+    #location = geolocator.geocode("10901 sw 60th ave Miami 33156 Murica")
     #print((location.latitude, location.longitude))
     #print(location.address)
-    add_coordinates("analyzed_data/severity1_violation_percentage.pickle")
+    results = add_coordinates("analyzed_data/severity1_violation_percentage.pickle")
+
+    with open("analyzed_data/completeSeverity1.pickle", "w") as handle:
+        pickle.dump(result[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
+    print(results)

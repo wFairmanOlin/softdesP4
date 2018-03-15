@@ -7,9 +7,7 @@ from bokeh.layouts import widgetbox, column
 from bokeh.models.widgets import RadioButtonGroup, Select
 from bokeh.models.callbacks import CustomJS
 from bokeh.colors import RGB
-from coordinateFinder import *
 
-print(works)
 def generate_colorScale():
     """
     return a list of colors for each glyph
