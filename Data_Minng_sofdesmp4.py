@@ -132,7 +132,7 @@ def get_restaurant_rating(restaurant, location):
 
 
 class Restaurant:
-    def __init__(self, name, address, vio_status, vio_level, viodesc, comment, zipcode):
+    def __init__(self, name, address, vio_status, vio_level, viodesc, comment, zipcode, location):
         self.name = name
         self.address = address
         self.vio_status = vio_status
@@ -141,15 +141,18 @@ class Restaurant:
         self.comment = comment
         self.zipcode = zipcode
         # self.rating = rating
-        # lon_la = []
-        # for i in location.strip('()').split():
-        #     lon_la.append(float(i.strip(',')))
-        # self.location = tuple(lon_la)
+        lon_la = []
+        if location == None:
+            self.location = (0, 0)
+        else:
+            for i in location.strip('()').split():
+                lon_la.append(float(i.strip(',')))
+            self.location = tuple(lon_la)
 
     def __str__(self):
         return (
             'name: %s' % self.name + '\n' + 'address: %s' % self.address + '\n' + 'violation status: %s' % self.vio_status + '\n'
-            + 'violation level: %s' % self.viol_level + '\n' + 'violation description: %s' % self.viodesc + '\n' + 'comment: %s' % self.comment + 'zipcode: %s' % self.zipcode)
+            + 'violation level: %s' % self.viol_level + '\n' + 'violation description: %s' % self.viodesc + '\n' + 'comment: %s' % self.comment + 'zipcode: %s' % self.zipcode + '\n' + 'location: %s' % self.location)
 
 
 def get_restaurants_list(filename):
@@ -161,7 +164,7 @@ def get_restaurants_list(filename):
                                     address=row['Address'] + ' ' + row['CITY'] + ' ' + row['STATE'] + ' ' + row['ZIP'],
                                     vio_status=row['ViolStatus'],
                                     vio_level=row['ViolLevel'], viodesc=row['ViolDesc'], comment=row['Comments'],
-                                    zipcode=row['ZIP'])
+                                    zipcode=row['ZIP'], location=row['Location'])
             # print(restaurant)
             restaurant_list.append(restaurant)
     return restaurant_list
@@ -193,6 +196,8 @@ class Restaurants:
             inspection_his[restaurant.name]['inspection'] = inspection_his[restaurant.name].get('inspection', 0) + 1
             inspection_his[restaurant.name]['address'] = inspection_his[restaurant.name].get('address',
                                                                                              restaurant.address)
+            inspection_his[restaurant.name]['location'] = inspection_his[restaurant.name].get('location',
+                                                                                              restaurant.location)
         return inspection_his
 
     def histogram_fail(self):
@@ -222,6 +227,7 @@ class Restaurants:
             percentage = fail[i] / num_inspection[i]['inspection'] * 100
             violation_percentage[i] = {}
             violation_percentage[i]['address'] = num_inspection[i]['address']
+            violation_percentage[i]['location'] = num_inspection[i]['location']
             violation_percentage[i]['percentage'] = percentage
 
         # unit test to check one entry in violation percentage dictionary
@@ -245,6 +251,7 @@ class Restaurants:
             severities[i] = {}
             severities[i]['percentage'] = percentage
             severities[i]['address'] = num_inspection[i]['address']
+            severities[i]['location'] = num_inspection[i]['location']
 
         return severities
 
@@ -271,15 +278,18 @@ class Restaurants:
                 severity3[i] = {}
                 severity3[i]['percentage'] = allseverity3[i]['percentage']
                 severity3[i]['address'] = allseverity3[i]['address']
+                severity3[i]['location'] = allseverity3[i]['location']
             elif allseverity2[i]['percentage'] == max(allseverity3[i]['percentage'], allseverity2[i]['percentage'],
                                                       allseverity1[i]['percentage']):
                 severity2[i] = {}
                 severity2[i]['percentage'] = allseverity2[i]['percentage']
                 severity2[i]['address'] = allseverity2[i]['address']
+                severity2[i]['location'] = allseverity2[i]['location']
             else:
                 severity1[i] = {}
                 severity1[i]['percentage'] = allseverity1[i]['percentage']
                 severity1[i]['address'] = allseverity1[i]['address']
+                severity1[i]['location'] = allseverity1[i]['location']
         return severity1, severity2, severity3
 
     def test_duplicate_in_severity_123(self):
@@ -373,10 +383,10 @@ if __name__ == "__main__":
     with open('analyzed_data/severity3_violation_percentage.pickle', 'wb') as handle:
         pickle.dump(result[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-    # # save rating dictionary as a txt
-    # with open("analyzed_data/rating.txt", "w") as output:
-    #     output.write(json.dumps(result[4]))
-    #
-    # # save rating dictionary as .pickle
-    # with open('analyzed_data/rating.pickle', 'wb') as handle:
-    #     pickle.dump(result[4], handle, protocol=pickle.HIGHEST_PROTOCOL)
+        # # save rating dictionary as a txt
+        # with open("analyzed_data/rating.txt", "w") as output:
+        #     output.write(json.dumps(result[4]))
+        #
+        # # save rating dictionary as .pickle
+        # with open('analyzed_data/rating.pickle', 'wb') as handle:
+        #     pickle.dump(result[4], handle, protocol=pickle.HIGHEST_PROTOCOL)

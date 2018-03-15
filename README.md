@@ -63,6 +63,3 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
