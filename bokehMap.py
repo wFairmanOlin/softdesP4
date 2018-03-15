@@ -8,8 +8,13 @@ from bokeh.models.widgets import RadioButtonGroup, Select
 from bokeh.models.callbacks import CustomJS
 from bokeh.colors import RGB
 from dataProcessing import *
+from bokeh.models import HoverTool
 
-severity1 = generate_dictionary('analyzed_data/completeSeverity1.pickle')
+severity1 = generate_dictionary('completeSeverity1.pickle', RGB(255,200,0))
+severity2 = generate_dictionary('completeSeverity2.pickle', RGB(255,100,0))
+severity3 = generate_dictionary('completeSeverity3.pickle', RGB(255,0,0))
+
+print(severity1['name'])
 #severity2 = generate_dictionary('analyzed_data/completeSeverity2.pickle')
 #severity3 = generate_dictionary('analyzed_data/completeSeverity3.pickle')
 def generate_colorScale():
@@ -41,12 +46,12 @@ def callback(new):
 
 def show_severity(attr, old, new):
     print(new)
-    # if new == 'high':
-    #     source.data = severity3
-    # elif new == 'medium':
-    #     source.data = severity2
-    # else:
-    #     source.data = severity1
+    if new == 'high':
+        source.data = severity3
+    elif new == 'medium':
+        source.data = severity2
+    else:
+        source.data = severity1
 #Examples of custom color scale
 #define colors by RGB value
 color_range = [RGB(255,0,0), RGB(255,100,0), RGB(255,200,0)]
@@ -55,28 +60,28 @@ color = ['green', 'blue', 'red']
 
 #data source containing the location and color of each glyph
 dataSource = dict(lat=[42.2932, 42.2936, 42.2994],
-                lon=[-71.2637, -71.3059, -71.2660], color=color_range)
+                lon=[-71.2637, -71.3059, -71.2660], color=color_range, name=['Olin', 'Wellsley', 'Babson'])
 
 #Converts our data points into a bokeh readable object
 source = ColumnDataSource(
     data=severity1)
 
 #Creates the glyphs for the map
-circle = Circle(x="lon", y="lat", size=15, fill_color="color", fill_alpha=0.8, line_color=None)
+circle = Circle(x="lon", y="lat", size=10, fill_color="color", fill_alpha=0.8, line_color=None)
 
 #Generates geographical map of Boston
-map_options = GMapOptions(lat=42.36, lng=-71.05, map_type="roadmap", zoom=10)
-plot = GMapPlot(x_range=Range1d(), y_range=Range1d(), map_options=map_options)
+map_options = GMapOptions(lat=42.36, lng=-71.05, map_type="roadmap", zoom=12)
+plot = GMapPlot(x_range=Range1d(), y_range=Range1d(), map_options=map_options, plot_width=1500, plot_height=800)
 plot.title.text = "Boston"
 #My personal google api key
 plot.api_key = " AIzaSyBt2HETloZkCelX_XuVAXAgRkds_nBhNZQ"
 
 
 #Adds glyph and tools to the map
+hover = HoverTool(tooltips=[
+     ("Name", "@name")])
 plot.add_glyph(source, circle)
-plot.add_tools(PanTool(), WheelZoomTool(), BoxSelectTool())
-
-
+plot.add_tools(PanTool(), WheelZoomTool(), BoxSelectTool(), hover)
 
 #Initiates the objects into the html web page
 button_group = RadioButtonGroup(labels=["Amon", "Ben", "Paul"], active=0)

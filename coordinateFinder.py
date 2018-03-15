@@ -4,33 +4,33 @@ import time, pickle
 
 geolocator = Nominatim()
 def add_coordinates(filename):
-    print('getting results...')
     results = read_pickle(filename)
-    print('results returned...')
-    print(len(results))
-    print(type(results))
     limit = 0
     for i in results:
         print('num=', limit)
         address = results[i]['address']
-        print(address)
-        location = geolocator.geocode(address)
-        if location is not None:
-            print(location.latitude, location.longitude)
-            results[i]['lon'] = location.latitude
-            results[i]['lat'] = location.longitude
-        else:
-            results[i]['lon'] = 0
-            results[i]['lat'] = 0
-        time.sleep (3)
-        if limit > 49:
-            break
+        coordinates = results[i]['location']
+
+        if len(coordinates) < 1:
+            try:
+                location = geolocator.geocode(address)
+                if location is not None:
+                    print(location.latitude, location.longitude)
+                    results[i]['location'] = [location.latitude, location.longitude]
+                else:
+                    results[i]['location'] = [0,0]
+            except:
+                results[i]['location'] = [0,0]
+                pass
+            time.sleep (3)
+        #if limit > 49:
+        #    break
         limit += 1
     return results
-        #time.sleep(100)
+
+
 def add_fake_coordinates(filename):
-    #42.2932
-    #-71.2637
+
     results = read_pickle(filename)
     limit = 0
     for i in results:
@@ -45,9 +45,9 @@ if __name__ == "__main__":
     #print((location.latitude, location.longitude))
     #print(location.address)
     #results = add_fake_coordinates("analyzed_data/severity1_violation_percentage.pickle")
-    results = add_coordinates("analyzed_data/severity1_violation_percentage.pickle")
+    results = add_coordinates("analyzed_data/severity3_violation_percentage.pickle")
 
     #f = open("analyzed_data/severity1_violation_percentage.pickle", 'wb')
     #pickle.dump(retFile, f)
-    with open("analyzed_data/1_50Severity1.pickle", "wb") as handle:
+    with open("completeSeverity3.pickle", "wb") as handle:
         pickle.dump(results, handle, protocol=pickle.HIGHEST_PROTOCOL)
