@@ -49,14 +49,14 @@ def colormap(filename):
         red = remap_interval(R,0,1)
         green = remap_interval(G,0,1)
         blue = remap_interval(B,0,1)
-        data[restaurant]['color'] = [RGB(red, green, blue)]
+        data[restaurant]['color'] = (red, green, blue)
         #print(data[restaurant]['color'])
     return data
 
 
 def run():
     violation_color = colormap('analyzed_data/restaurant_violation_percentage.txt')
-    # print(violation_color)
+    #print(violation_color)
 
     severity1_color = colormap('analyzed_data/severity1_violation_percentage.txt')
     severity2_color = colormap('analyzed_data/severity2_violation_percentage.txt')
