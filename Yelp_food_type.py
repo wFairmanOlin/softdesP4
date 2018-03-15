@@ -1,13 +1,15 @@
-import simplejson as json
+from __future__ import print_function
 import argparse
 import requests
 import sys
+import pickle
 import urllib
 from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.parse import urlencode
+from Read_data import read_pickle
 
-# Get Rating from Yelp
+# Get Food Type from Yelp
 
 # API constants.
 API_HOST = 'https://api.yelp.com'
@@ -105,28 +107,6 @@ def query_api(term, location):
     return response
 
 
-def get_restaurant_rating(restaurant, location):
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument('-q', '--term', dest='term', default=restaurant,
-                        type=str, help='Search term (default: %(default)s)')
-    parser.add_argument('-l', '--location', dest='location',
-                        default=location, type=str,
-                        help='Search location (default: %(default)s)')
-
-    input_values = parser.parse_args()
-
-    try:
-        return query_api(input_values.term, input_values.location)
-    except HTTPError as error:
-        sys.exit(
-            'Encountered HTTP error {0} on {1}:\n {2}\nAbort program.'.format(
-                error.code,
-                error.url,
-                error.read(),
-            )
-        )
-
 def get_restaurant_food_type(restaurant, location):
     parser = argparse.ArgumentParser()
 
@@ -139,6 +119,7 @@ def get_restaurant_food_type(restaurant, location):
     input_values = parser.parse_args()
 
     try:
+        #print(query_api(input_values.term, input_values.location))
         return query_api(input_values.term, input_values.location)
     except HTTPError as error:
         sys.exit(
@@ -149,14 +130,48 @@ def get_restaurant_food_type(restaurant, location):
             )
         )
 
-def get_food_type(self, api_key, search_limit):
-    data =
-    for restaurant in data.keys():
-        if data.get(restaurant, 'NA') == 'NA':
-            yelp_foodtype = get_restaurant_food_type(restaurant, data[restaurant]['categories'][0]['title'])
-            if yelp_foodtype == None:
-                data['foodtype'] = 'None'
+
+def get_food_type(api_key, search_limit, filename):
+    data = read_pickle(filename)
+    for restaurant in data:
+        yelp_foodtype = get_restaurant_food_type(restaurant, data[restaurant]['address'])
+        #print(yelp_foodtype)
+        if yelp_foodtype == None:
+            data[restaurant]['foodtype'] = 'None'
+        else:
+            if yelp_foodtype['categories'] == []:
+                data[restaurant]['foodtype'] = 'None'
             else:
-                data['foodtype'] = yelp_foodtype
+                data[restaurant]['foodtype'] = yelp_foodtype['categories'][0]['title']
+                print(data[restaurant]['foodtype'])
+            #print(data[restaurant]['foodtype'])
     return data
 
+
+def run():
+    violation = get_food_type(API_KEY, SEARCH_LIMIT, 'color_data/restaurant_violation_percentage.pickle')
+    # severity1 = get_food_type(API_KEY, SEARCH_LIMIT, 'color_data/severity1_violation_percentage.pickle')
+    # severity2 = get_food_type(API_KEY, SEARCH_LIMIT, 'color_data/severity2_violation_percentage.pickle')
+    # severity3 = get_food_type(API_KEY, SEARCH_LIMIT, 'color_data/severity3_violation_percentage.pickle')
+    return violation
+
+
+
+if __name__ == '__main__':
+    result = run()
+
+    # save violation percentage dictionary as .pickle
+    with open('foodtype_data/restaurant_violation_percentage.pickle', 'wb') as handle:
+        pickle.dump(result, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    # # save severity1 percentage dictionary as .pickle
+    # with open('foodtype_data/severity1_violation_percentage.pickle', 'wb') as handle:
+    #     pickle.dump(result[1], handle, protocol=pickle.HIGHEST_PROTOCOL)
+    #
+    # # save severity2 percentage dictionary as .pickle
+    # with open('foodtype_data/severity2_violation_percentage.pickle', 'wb') as handle:
+    #     pickle.dump(result[2], handle, protocol=pickle.HIGHEST_PROTOCOL)
+    #
+    # # save severity3 percentage dictionary as .pickle
+    # with open('foodtype_data/severity3_violation_percentage.pickle', 'wb') as handle:
+    #     pickle.dump(result[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
