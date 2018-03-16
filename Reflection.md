@@ -4,7 +4,7 @@
 We wanted to visualize the City of Boston's data concerning the health ratings of local restaurants. This data, while providing crucial information, is only accessible in a csv file approximately half a million lines long. By implementing the Bokeh python library, we were able to display restaurants on Google maps in a format that made it easy to view the severity of their failed inspections and the percentage of failed inspections.
 
 
-#Implementation
+## Implementation
 We parsed the restaurant inspection data by storing each row in the ```.csv``` file in a ```Restaurant``` object and assign columns with relevant data such as name, address, inspection Status and etc to the attribute of the ```Restaurant``` object. For later data analysis, we create a ```Restaurants``` object whose attribute is a list of restaurant. The UML class diagram is shown below:
 
 ![class_image](class.png)
@@ -26,4 +26,4 @@ When comparing the overall failing percentages to the severity level, we notice 
 
 ## Reflection
 
-T
+Th
