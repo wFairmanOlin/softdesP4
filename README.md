@@ -39,7 +39,8 @@ pip3 install geopy
 ```
 bokeh serve --show bokehMap.py
 ```
-The color scale of the data points is blue to white to red where blue represents a low failure percentage and red represent a high failure percentage.
+The color scale of the data points is blue to white to red where blue represents a low failure percentage and red represent a high failure percentage. The following picture is an example of the color scale:
+![colorscale](https://github.com/wFairmanOlin/softdesP4/blob/master/images/cmap.png)
 
 If the interactive map froze, hit refresh in the browser. Hover over each data point to see the restaurant name and costumer rating.
 
