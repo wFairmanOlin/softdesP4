@@ -1,4 +1,4 @@
-from bokeh.io import output_file, show, curdoc
+from bokeh.io import output_file, show, curdoc, figure
 from bokeh.models import (
   GMapPlot, GMapOptions, ColumnDataSource,
   CustomJS, Circle, Range1d, PanTool, WheelZoomTool, BoxSelectTool
@@ -10,11 +10,11 @@ from bokeh.colors import RGB
 from dataProcessing import *
 from bokeh.models import HoverTool
 
-severity1 = generate_dictionary('completeSeverity1.pickle', RGB(255,200,0))
-severity2 = generate_dictionary('completeSeverity2.pickle', RGB(255,100,0))
-severity3 = generate_dictionary('completeSeverity3.pickle', RGB(255,0,0))
+severity1 = generate_severityDictionary('1', RGB(255,200,0))
+severity2 = generate_severityDictionary('2', RGB(255,100,0))
+severity3 = generate_severityDictionary('3', RGB(255,0,0))
+general = generate_mainDictionary('color_data/restaurant_violation_percentage.pickle')
 
-print(severity1['name'])
 #severity2 = generate_dictionary('analyzed_data/completeSeverity2.pickle')
 #severity3 = generate_dictionary('analyzed_data/completeSeverity3.pickle')
 def generate_colorScale():
@@ -30,7 +30,8 @@ def callback(new):
     """
     #value of the clicked radio button
     i = new
-    #print(i)
+    print(i)
+    source.data = general
 
     #example of isolating certain data points when clicked
     # data = dataSource
@@ -64,10 +65,10 @@ dataSource = dict(lat=[42.2932, 42.2936, 42.2994],
 
 #Converts our data points into a bokeh readable object
 source = ColumnDataSource(
-    data=severity1)
+    data=general)
 
 #Creates the glyphs for the map
-circle = Circle(x="lon", y="lat", size=10, fill_color="color", fill_alpha=0.8, line_color=None)
+circle = Circle(x="lon", y="lat", size=11, fill_color="color", fill_alpha=0.8, line_color=None)
 
 #Generates geographical map of Boston
 map_options = GMapOptions(lat=42.36, lng=-71.05, map_type="roadmap", zoom=12)
@@ -82,6 +83,10 @@ hover = HoverTool(tooltips=[
      ("Name", "@name")])
 plot.add_glyph(source, circle)
 plot.add_tools(PanTool(), WheelZoomTool(), BoxSelectTool(), hover)
+
+
+colorScale = figure()
+colorScale.image_url(url=['tree.png'], x=0, y=1)
 
 #Initiates the objects into the html web page
 button_group = RadioButtonGroup(labels=["Amon", "Ben", "Paul"], active=0)

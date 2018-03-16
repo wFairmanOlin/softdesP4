@@ -7,7 +7,7 @@ from bokeh.colors import RGB
 minima = 0
 maxima = 100
 norm = matplotlib.colors.Normalize(vmin=minima, vmax=maxima, clip=True)
-mapper = cm.ScalarMappable(norm=norm, cmap=cm.CMRmap)
+mapper = cm.ScalarMappable(norm=norm, cmap=cm.bwr)
 
 
 def read_json(filename):
