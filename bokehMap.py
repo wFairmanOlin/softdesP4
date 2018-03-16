@@ -1,14 +1,15 @@
-from bokeh.io import output_file, show, curdoc, figure
+from bokeh.io import output_file, show, curdoc
 from bokeh.models import (
   GMapPlot, GMapOptions, ColumnDataSource,
   CustomJS, Circle, Range1d, PanTool, WheelZoomTool, BoxSelectTool
 )
-from bokeh.layouts import widgetbox, column
+from bokeh.layouts import widgetbox, column, row
 from bokeh.models.widgets import RadioButtonGroup, Select
 from bokeh.models.callbacks import CustomJS
 from bokeh.colors import RGB
 from dataProcessing import *
 from bokeh.models import HoverTool
+from bokeh.plotting import figure, show, output_file
 
 severity1 = generate_severityDictionary('1', RGB(255,200,0))
 severity2 = generate_severityDictionary('2', RGB(255,100,0))
@@ -84,16 +85,15 @@ hover = HoverTool(tooltips=[
 plot.add_glyph(source, circle)
 plot.add_tools(PanTool(), WheelZoomTool(), BoxSelectTool(), hover)
 
-
-colorScale = figure()
-colorScale.image_url(url=['tree.png'], x=0, y=1)
+colorScale = figure(x_range=(0,1), y_range=(0,1))#x_range=(0,1), y_range=(0,1))
+colorScale.image_url(url=['CMAP.jpg'],x=1, y=1, h=600, w=100)
 
 #Initiates the objects into the html web page
 button_group = RadioButtonGroup(labels=["Amon", "Ben", "Paul"], active=0)
 select = Select(title="Severity Level:", value="low", options=["high", "medium", "low"])
 output_file("gmap_plot.html")
 #defines the layouts of the objects
-layout = column(plot, button_group, select)
+layout = column(row(plot, colorScale), button_group, select)
 #defines what happpens on a button click event
 button_group.on_click(callback)
 select.on_change('value', show_severity)
