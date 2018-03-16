@@ -3,7 +3,7 @@
 .DS_Store
 .idea/*.xml
 .lock.*.csv
-*.pickle
+#*.pickle
 /analyzed_data/*
 /color_data/*
 .ideal/*

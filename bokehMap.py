@@ -59,7 +59,9 @@ hover = HoverTool(tooltips=[
 plot.add_glyph(source, circle)
 plot.add_tools(PanTool(), WheelZoomTool(), BoxSelectTool(), hover)
 
+mytext = Label(x=70, y=70, text='here your text')
 
+plot.add_layout(mytext)
 #Initiates the objects into the html web page
 button_1 = Button(label="Show all Restaurants")
 #button_group = RadioButtonGroup(labels=["Show All Restaurants"], active=-1)
