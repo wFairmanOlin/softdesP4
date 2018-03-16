@@ -108,6 +108,7 @@ def query_api(term, location):
 
 
 def get_restaurant_food_type(restaurant, location):
+    """Return query result for each restaurant from Yelp Fusion."""
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-q', '--term', dest='term', default=restaurant,
@@ -132,6 +133,7 @@ def get_restaurant_food_type(restaurant, location):
 
 
 def get_food_type(api_key, search_limit, filename):
+    """Return the food type for each restaurant and store it in a dictionary."""
     data = read_pickle(filename)
     for restaurant in data:
         yelp_foodtype = get_restaurant_food_type(restaurant, data[restaurant]['address'])
@@ -149,7 +151,7 @@ def get_food_type(api_key, search_limit, filename):
 
 
 def run():
-    violation = get_food_type(API_KEY, SEARCH_LIMIT, 'color_data/restaurant_violation_percentage.pickle')
+    violation = get_food_type(API_KEY, SEARCH_LIMIT, '../color_data/restaurant_violation_percentage.pickle')
     return violation
 
 
@@ -158,6 +160,6 @@ if __name__ == '__main__':
     result = run()
 
     # save violation percentage dictionary as .pickle
-    with open('foodtype_data/restaurant_violation_percentage.pickle', 'wb') as handle:
+    with open('../foodtype_data/foodtype.pickle', 'wb') as handle:
         pickle.dump(result, handle, protocol=pickle.HIGHEST_PROTOCOL)
 

@@ -37,14 +37,16 @@ pip3 install geopy
 ## Running
 ### To visualize the interactive data, run:
 ```
+mkdir processed_data
+```
+Download all processed and analyzed data result from this [link](https://drive.google.com/drive/folders/1XwjAsHmIRBmLWW0rrCVuQfGo132qBuzS?usp=sharing) and store them in ```processed_data/```.
+
+```
 bokeh serve --show bokehMap.py
 ```
-The color scale of the data points is blue to white to red where blue represents a low failure percentage and red represent a high failure percentage. The following picture is an example of the color scale:
-![colorscale](https://github.com/wFairmanOlin/softdesP4/blob/master/images/cmap.png)
+The color scale of the data points is blue to white to red where blue represents a low failure percentage and red represent a high failure percentage. View [colorscale](https://github.com/wFairmanOlin/softdesP4/blob/master/images/cmap.png) from the link.
 
 If the interactive map froze, hit refresh in the browser. Hover over each data point to see the restaurant name and costumer rating.
-
-The data analysis result bokeh map calls is stored in ```processed_data/```.
 
 ### To conduct the data analysis, follow the below steps:
 Warning: the process takes hours to run due to the large amount of data in the ```.csv```
