@@ -7,7 +7,8 @@ def generate_severityDictionary(severityLevel, color):
     colorname = 'color_data/severity{}_violation_percentage.pickle'.format(severityLevel)
     results = read_pickle(filename)
     colors = read_pickle(colorname)
-    data = dict(lat=[], lon=[], color=[], name=[])
+    rating = getRatings()
+    data = dict(lat=[], lon=[], color=[], name=[], rating=[])
     limit = 0
     for name in results:
         red, green, blue = colors[name]['color']
@@ -15,6 +16,7 @@ def generate_severityDictionary(severityLevel, color):
         data['lon'].append(results[name]['location'][1])
         data['color'].append(color)
         data['name'].append(name)
+        data['rating'].append(rating[name])
         # if limit > stop:
         #     break
         limit += 1
@@ -22,7 +24,8 @@ def generate_severityDictionary(severityLevel, color):
 def generate_mainDictionary(filename):
     results = read_pickle(filename)
     coordinates = getCoordinates()
-    data = dict(lat=[], lon=[], color=[], name=[])
+    rating = getRatings()
+    data = dict(lat=[], lon=[], color=[], name=[], rating=[])
     limit = 0
     for name in results:
         red, green, blue = results[name]['color']
@@ -30,6 +33,7 @@ def generate_mainDictionary(filename):
         data['lon'].append(coordinates[name]['location'][1])
         data['color'].append(RGB(red, green, blue))
         data['name'].append(name)
+        data['rating'].append(rating[name])
         # if limit > stop:
         #     break
         limit += 1
@@ -45,6 +49,10 @@ def getCoordinates():
         coordinates = z = {**coordinates, **tempDict}
         print(type(coordinates))
     return coordinates
+
+def getRatings():
+    ratings = read_pickle('rating.pickle')
+    return ratings
 # def generate_dictionary(filename='word', color='red', stop=49):
 #     results = read_pickle(filename)
 #     data = dict(lat=[], lon=[], color=[])
