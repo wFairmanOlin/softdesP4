@@ -15,7 +15,7 @@ from bokeh.models import Legend
 severity1 = generate_severityDictionary('1', RGB(255,200,0))
 severity2 = generate_severityDictionary('2', RGB(255,100,0))
 severity3 = generate_severityDictionary('3', RGB(255,0,0))
-general = generate_mainDictionary('color_data/restaurant_violation_percentage.pickle')
+general = generate_mainDictionary('processed_data/restaurant_violation_percentage.pickle')
 
 def callback():
     """

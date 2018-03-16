@@ -3,8 +3,8 @@ from bokeh.colors import RGB
 import time
 
 def generate_severityDictionary(severityLevel, color):
-    filename = 'completeSeverity{}.pickle'.format(severityLevel)
-    colorname = 'color_data/severity{}_violation_percentage.pickle'.format(severityLevel)
+    filename = 'processed_data/completeSeverity{}.pickle'.format(severityLevel)
+    colorname = 'processed_data/severity{}_violation_percentage.pickle'.format(severityLevel)
     results = read_pickle(filename)
     colors = read_pickle(colorname)
     rating = getRatings()
@@ -40,10 +40,10 @@ def generate_mainDictionary(filename):
     return data
 
 def getCoordinates():
-    coordinates = read_pickle('completeSeverity1.pickle')
+    coordinates = read_pickle('processed_data/completeSeverity1.pickle')
     for i in range(2,4):
         print(i)
-        filename='completeSeverity{}.pickle'.format(i)
+        filename='processed_data/completeSeverity{}.pickle'.format(i)
         tempDict = read_pickle(filename)
         print(type(coordinates), type(tempDict))
         coordinates = z = {**coordinates, **tempDict}
@@ -51,7 +51,7 @@ def getCoordinates():
     return coordinates
 
 def getRatings():
-    ratings = read_pickle('rating.pickle')
+    ratings = read_pickle('processed_data/rating.pickle')
     return ratings
 # def generate_dictionary(filename='word', color='red', stop=49):
 #     results = read_pickle(filename)
