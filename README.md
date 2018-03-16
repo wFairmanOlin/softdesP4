@@ -3,8 +3,7 @@
 We wanted to visualize the City of Boston's data concerning the health ratings of local restaurants. This data, while providing crucial information, is only accessible in a csv file approximately half a million lines long. By implementing the Bokeh python library, we were able to display restaurants on Google maps in a format that made it easy to view the severity of their failed inspections and the percentage of failed inspections.
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running the data visualization on your local machine.
+The following instructions will give you the libraries needed and show you the steps to view our data map.
 
 ### Prerequisites
 
@@ -36,17 +35,17 @@ pip3 install geopy
 ```
 ## Running
 ### To visualize the interactive data, run:
-```
+<!-- ```
 mkdir processed_data
 ```
-Download all processed and analyzed data result from this [link](https://drive.google.com/drive/folders/1XwjAsHmIRBmLWW0rrCVuQfGo132qBuzS?usp=sharing) and store them in ```processed_data/```.
+Download all processed and analyzed data result from this [link](https://drive.google.com/drive/folders/1XwjAsHmIRBmLWW0rrCVuQfGo132qBuzS?usp=sharing) and store them in ```processed_data/```. -->
 
 ```
 bokeh serve --show bokehMap.py
 ```
 The color scale of the data points is blue to white to red where blue represents a low failure percentage and red represent a high failure percentage. View [colorscale](https://github.com/wFairmanOlin/softdesP4/blob/master/images/cmap.png) from the link.
 
-If the interactive map froze, hit refresh in the browser. Hover over each data point to see the restaurant name and costumer rating.
+If the interactive map freezes, hit refresh in the browser. Hover over each data point to see the restaurant name and customer rating.
 
 ### To conduct the data analysis, follow the below steps:
 Warning: the process takes hours to run due to the large amount of data in the ```.csv```
