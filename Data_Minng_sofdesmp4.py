@@ -336,8 +336,7 @@ def run(filename, listname):
     vio_percentage = name.get_violation_percentage()
     severity1, severity2, severity3 = name.sort_all_3_severity_percentage()
     fail_percentage_zipcode = name.get_violation_by_zipcode()
-    # rating = name.get_rating(API_KEY, SEARCH_LIMIT)
-    rating = 0
+    rating = name.get_rating(API_KEY, SEARCH_LIMIT)
     return vio_percentage, severity1, severity2, severity3, rating, fail_percentage_zipcode
 
 
@@ -383,10 +382,10 @@ if __name__ == "__main__":
     with open('analyzed_data/severity3_violation_percentage.pickle', 'wb') as handle:
         pickle.dump(result[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-        # # save rating dictionary as a txt
-        # with open("analyzed_data/rating.txt", "w") as output:
-        #     output.write(json.dumps(result[4]))
-        #
-        # # save rating dictionary as .pickle
-        # with open('analyzed_data/rating.pickle', 'wb') as handle:
-        #     pickle.dump(result[4], handle, protocol=pickle.HIGHEST_PROTOCOL)
+    # save rating dictionary as a txt
+    with open("analyzed_data/rating.txt", "w") as output:
+        output.write(json.dumps(result[4]))
+
+    # save rating dictionary as .pickle
+    with open('analyzed_data/rating.pickle', 'wb') as handle:
+        pickle.dump(result[4], handle, protocol=pickle.HIGHEST_PROTOCOL)
