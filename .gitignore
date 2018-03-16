@@ -3,8 +3,8 @@
 .DS_Store
 .idea/*.xml
 .lock.*.csv
-#*.pickle
 /analyzed_data/*
 /color_data/*
 .ideal/*
 /foodtype_data/*
+.idea/inspectionProfiles/

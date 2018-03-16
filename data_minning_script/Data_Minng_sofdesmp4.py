@@ -343,49 +343,49 @@ def run(filename, listname):
 if __name__ == "__main__":
     result = run('mayorsfoodcourt.csv', 'Boston')
     # save violation percentage dictionary as a txt
-    with open("analyzed_data/restaurant_violation_percentage.txt", "w") as output:
+    with open("../analyzed_data/restaurant_violation_percentage.txt", "w") as output:
         output.write(json.dumps(result[0]))
 
     # save violation percentage dictionary as .pickle
-    with open('analyzed_data/restaurant_violation_percentage.pickle', 'wb') as handle:
+    with open('../analyzed_data/restaurant_violation_percentage.pickle', 'wb') as handle:
         pickle.dump(result[0], handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     # save zipcode percentage dictionary as a txt
-    with open("analyzed_data/zipcode_violation_percentage.txt", "w") as output:
+    with open("../analyzed_data/zipcode_violation_percentage.txt", "w") as output:
         output.write(json.dumps(result[-1]))
 
     # save zipcode percentage dictionary as .pickle
-    with open('analyzed_data/zipcode_violation_percentage.pickle', 'wb') as handle:
+    with open('../analyzed_data/zipcode_violation_percentage.pickle', 'wb') as handle:
         pickle.dump(result[-1], handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     # save severity1 percentage dictionary as a txt
-    with open("analyzed_data/severity1_violation_percentage.txt", "w") as output:
+    with open("../analyzed_data/severity1_violation_percentage.txt", "w") as output:
         output.write(json.dumps(result[1]))
 
     # save severity1 percentage dictionary as .pickle
-    with open('analyzed_data/severity1_violation_percentage.pickle', 'wb') as handle:
+    with open('../analyzed_data/severity1_violation_percentage.pickle', 'wb') as handle:
         pickle.dump(result[1], handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     # save severity2 percentage dictionary as a txt
-    with open("analyzed_data/severity2_violation_percentage.txt", "w") as output:
+    with open("../analyzed_data/severity2_violation_percentage.txt", "w") as output:
         output.write(json.dumps(result[2]))
 
     # save severity2 percentage dictionary as .pickle
-    with open('analyzed_data/severity2_violation_percentage.pickle', 'wb') as handle:
+    with open('../analyzed_data/severity2_violation_percentage.pickle', 'wb') as handle:
         pickle.dump(result[2], handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     # save severity3 percentage dictionary as a txt
-    with open("analyzed_data/severity3_violation_percentage.txt", "w") as output:
+    with open("../analyzed_data/severity3_violation_percentage.txt", "w") as output:
         output.write(json.dumps(result[3]))
 
     # save severity3 percentage dictionary as .pickle
-    with open('analyzed_data/severity3_violation_percentage.pickle', 'wb') as handle:
+    with open('../analyzed_data/severity3_violation_percentage.pickle', 'wb') as handle:
         pickle.dump(result[3], handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     # save rating dictionary as a txt
-    with open("analyzed_data/rating.txt", "w") as output:
+    with open("../analyzed_data/rating.txt", "w") as output:
         output.write(json.dumps(result[4]))
 
     # save rating dictionary as .pickle
-    with open('analyzed_data/rating.pickle', 'wb') as handle:
+    with open('../analyzed_data/rating.pickle', 'wb') as handle:
         pickle.dump(result[4], handle, protocol=pickle.HIGHEST_PROTOCOL)

@@ -22,7 +22,7 @@ def add_coordinates(filename):
             except:
                 results[i]['location'] = [0,0]
                 pass
-            time.sleep (3)
+            time.sleep (0.5)
         #if limit > 49:
         #    break
         limit += 1
@@ -45,9 +45,17 @@ if __name__ == "__main__":
     #print((location.latitude, location.longitude))
     #print(location.address)
     #results = add_fake_coordinates("analyzed_data/severity1_violation_percentage.pickle")
-    results = add_coordinates("analyzed_data/severity3_violation_percentage.pickle")
 
-    #f = open("analyzed_data/severity1_violation_percentage.pickle", 'wb')
+    #f = open("../analyzed_data/severity1_violation_percentage.pickle", 'wb')
     #pickle.dump(retFile, f)
-    with open("completeSeverity3.pickle", "wb") as handle:
-        pickle.dump(results, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    results3 = add_coordinates("../analyzed_data/severity3_violation_percentage.pickle")
+    with open("../processed_data/completeSeverity3.pickle", "wb") as handle:
+        pickle.dump(results3, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    results2 = add_coordinates("../analyzed_data/severity2_violation_percentage.pickle")
+    with open("../processed_data/completeSeverity2.pickle", "wb") as handle:
+        pickle.dump(results2, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    results1 = add_coordinates("../analyzed_data/severity1_violation_percentage.pickle")
+    with open("../processed_data/completeSeverity1.pickle", "wb") as handle:
+        pickle.dump(results1, handle, protocol=pickle.HIGHEST_PROTOCOL)

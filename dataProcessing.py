@@ -6,21 +6,40 @@ def generate_severityDictionary(severityLevel, color):
     filename = 'processed_data/completeSeverity{}.pickle'.format(severityLevel)
     colorname = 'processed_data/severity{}_violation_percentage.pickle'.format(severityLevel)
     results = read_pickle(filename)
-    colors = read_pickle(colorname)
     rating = getRatings()
     data = dict(lat=[], lon=[], color=[], name=[], rating=[])
     limit = 0
     for name in results:
-        red, green, blue = colors[name]['color']
         data['lat'].append(results[name]['location'][0])
         data['lon'].append(results[name]['location'][1])
         data['color'].append(color)
         data['name'].append(name)
         data['rating'].append(rating[name])
-        # if limit > stop:
-        #     break
         limit += 1
     return data
+
+def generate_foodtypeDictionary(filename, foodtype, color):
+    results = read_pickle(filename)
+    coordinates = getCoordinates()
+    rating = getRatings()
+    data = dict(lat=[], lon=[], color=[], name=[], rating=[],foodtype=[])
+    limit = 0
+    for name in results:
+        if results[name]['foodtype'] == foodtype:
+            try:
+                data['lat'].append(coordinates[name]['location'][0])
+                data['lon'].append(coordinates[name]['location'][1])
+            except:
+                data['lat'].append(0)
+                data['lon'].append(0)
+            data['color'].append(color)
+            data['name'].append(name)
+            data['rating'].append(rating[name])
+            data['foodtype'].append(foodtype)
+            limit += 1
+    return data
+
+
 def generate_mainDictionary(filename):
     results = read_pickle(filename)
     coordinates = getCoordinates()
@@ -28,14 +47,12 @@ def generate_mainDictionary(filename):
     data = dict(lat=[], lon=[], color=[], name=[], rating=[])
     limit = 0
     for name in results:
-        red, green, blue = results[name]['color']
+        red, green, blue = results[name]['color'][0], results[name]['color'][1], results[name]['color'][2]
         data['lat'].append(coordinates[name]['location'][0])
         data['lon'].append(coordinates[name]['location'][1])
         data['color'].append(RGB(red, green, blue))
         data['name'].append(name)
         data['rating'].append(rating[name])
-        # if limit > stop:
-        #     break
         limit += 1
     return data
 
@@ -65,6 +82,7 @@ def getRatings():
 #             break
 #         limit += 1
 #     return data
+#
 
 
 if __name__ == "__main__":

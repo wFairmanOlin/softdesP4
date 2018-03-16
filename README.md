@@ -35,8 +35,31 @@ Install Geopy
 pip3 install geopy
 ```
 ## Running
+### To visualize the interactive data, run:
+```
+mkdir processed_data
+```
+Download all processed and analyzed data result from this [link](https://drive.google.com/drive/folders/1XwjAsHmIRBmLWW0rrCVuQfGo132qBuzS?usp=sharing) and store them in ```processed_data/```.
 
+```
+bokeh serve --show bokehMap.py
+```
+The color scale of the data points is blue to white to red where blue represents a low failure percentage and red represent a high failure percentage. View [colorscale](https://github.com/wFairmanOlin/softdesP4/blob/master/images/cmap.png) from the link.
 
+If the interactive map froze, hit refresh in the browser. Hover over each data point to see the restaurant name and costumer rating.
+
+### To conduct the data analysis, follow the below steps:
+Warning: the process takes hours to run due to the large amount of data in the ```.csv```
+```
+cd data_mining_script
+mkdir analyzed_data
+mkdir color_data
+mkdir foodtype_data
+python3 Data_Mining_sofdesmp4.py
+python3 Color.py
+python3 Yelp_food_type.py
+python3 coordinateFinder.py
+```
 
 ## Built With
 
