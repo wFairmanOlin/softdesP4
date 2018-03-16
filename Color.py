@@ -53,7 +53,6 @@ def colormap(filename):
         #print(data[restaurant]['color'])
     return data
 
-
 def run():
     violation_color = colormap('analyzed_data/restaurant_violation_percentage.txt')
     #print(violation_color)
