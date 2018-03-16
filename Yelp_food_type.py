@@ -150,9 +150,6 @@ def get_food_type(api_key, search_limit, filename):
 
 def run():
     violation = get_food_type(API_KEY, SEARCH_LIMIT, 'color_data/restaurant_violation_percentage.pickle')
-    # severity1 = get_food_type(API_KEY, SEARCH_LIMIT, 'color_data/severity1_violation_percentage.pickle')
-    # severity2 = get_food_type(API_KEY, SEARCH_LIMIT, 'color_data/severity2_violation_percentage.pickle')
-    # severity3 = get_food_type(API_KEY, SEARCH_LIMIT, 'color_data/severity3_violation_percentage.pickle')
     return violation
 
 
@@ -164,14 +161,3 @@ if __name__ == '__main__':
     with open('foodtype_data/restaurant_violation_percentage.pickle', 'wb') as handle:
         pickle.dump(result, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-    # # save severity1 percentage dictionary as .pickle
-    # with open('foodtype_data/severity1_violation_percentage.pickle', 'wb') as handle:
-    #     pickle.dump(result[1], handle, protocol=pickle.HIGHEST_PROTOCOL)
-    #
-    # # save severity2 percentage dictionary as .pickle
-    # with open('foodtype_data/severity2_violation_percentage.pickle', 'wb') as handle:
-    #     pickle.dump(result[2], handle, protocol=pickle.HIGHEST_PROTOCOL)
-    #
-    # # save severity3 percentage dictionary as .pickle
-    # with open('foodtype_data/severity3_violation_percentage.pickle', 'wb') as handle:
-    #     pickle.dump(result[3], handle, protocol=pickle.HIGHEST_PROTOCOL)

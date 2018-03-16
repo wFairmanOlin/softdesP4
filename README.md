@@ -1,10 +1,10 @@
 # Boston Restaurant Inspection Data Visualization
 
-One Paragraph of project description goes here
+We wanted to visualize the City of Boston's data concerning the health ratings of local restaurants. This data, while providing crucial information, is only accessible in a csv file approximately half a million lines long. By implementing the Bokeh python library, we were able to display restaurants on Google maps in a format that made it easy to view the severity of their failed inspections and the percentage of failed inspections.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running the data visualization on your local machine.
 
 ### Prerequisites
 
@@ -34,40 +34,23 @@ Install Geopy
 ```
 pip3 install geopy
 ```
-### Running
+## Running
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 
 ## Built With
 
 * [Bokeh](https://bokeh.pydata.org/en/latest/) - Used to generate visualization of interactive data.
-* [Yelp Fusion API Python](https://www.yelp.com/developers/documentation/v3/get_started) - Used the Search API to query for restaurant rating and food type.
-* [Matplotlib](https://matplotlib.org/) - Used to generate RSS Feeds
-*
-
+* [Yelp Fusion API Python](https://www.yelp.com/developers/documentation/v3/get_started) - Used to query for restaurant rating and food type.
+* [Matplotlib](https://matplotlib.org/) - Used to map percentage values to colormap scale.
+* [Geopy](https://geopy.readthedocs.io/en/1.10.0/) - Used to query restaurant longitude and latitude.
+* [data.boston.gov](https://data.boston.gov/dataset/food-establishment-inspections) - Used to download ```.csv``` file for data source.
 
 ## Authors
 
-* **Will Fairman**
+* **William Fairman**
 * **Sherrie Shen**
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* [Yelp Fusion API Python](https://github.com/Yelp/yelp-fusion/tree/master/fusion/python) ```sample.py``` to query restaurant costumer rating and food type.
