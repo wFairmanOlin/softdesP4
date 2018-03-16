@@ -5,6 +5,10 @@ We wanted to visualize the City of Boston's data concerning the health ratings o
 
 
 #Implementation
+We parsed the data d
+
+![](class.jpg)
+
 
 
 ## Results
